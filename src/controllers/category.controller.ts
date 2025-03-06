@@ -63,7 +63,7 @@ export const removeCategory = async (req: Request, res: Response) => {
     try {
         const id = Number(req.params.id)
         const deletedCategory = await category_repository.deleteCategory(id)
-        res.status(201).json({ data: deletedCategory })
+        res.status(201).json({ message: "Kategori Başarıyla kaldırıldı" })
     } catch (error) {
         res.status(404).json({ message: (error as Error).message })
         return;

@@ -1,29 +1,31 @@
 import db from '../config/database'
 
-interface CategoryCreateBody {
+interface ProductCreateBody {
     name: string;
     description: string;
+    price?: number;
+    category_id: number;
 }
 
-const tableName = "categories"
+const tableName = "products"
 
-const category_repository = {
+const product_repositories = {
 
-    async getCategories() {
+    async getProducts() {
         return db(tableName).returning('*');
     },
 
-    async getCategoryById(id: number) {
+    async getProductById(id: number) {
         return db(tableName).where({ id }).first()
     },
 
-    async createCategory(data: CategoryCreateBody) {
+    async createProduct(data: ProductCreateBody) {
         return db(tableName)
             .insert(data)
             .returning('*');
     },
 
-    async updateCategory(id: number, data: CategoryCreateBody) {
+    async updateProduct(id: number, data: ProductCreateBody) {
         const updatedData = {
             ...data,
             updated_at: new Date()
@@ -34,11 +36,10 @@ const category_repository = {
             .returning('*');
     },
 
-    async deleteCategory(id: number) {
+    async deleteProduct(id: number) {
         return db(tableName).where({ id }).update({ deleted_at: new Date() }).returning('*')
     }
 
 }
 
-
-export default category_repository;
+export default product_repositories;

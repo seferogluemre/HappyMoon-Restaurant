@@ -25,7 +25,7 @@
   "ts-node": {
     "compilerOptions": {
       "moduleDetection": "force",
-      "module": "CommonJS",
+      "module": "NodeNext",
       "resolveJsonModule": true,
       "allowJs": true,
       "esModuleInterop": true,

@@ -1,4 +1,7 @@
-export async function up(knex) {
+/**
+ * @param {import("knex").Knex} knex
+ */
+module.exports.up = async function (knex) {
     await knex.schema.createTable('ingredients', (table) => {
         table.increments('id').primary();
         table.string('name').notNullable();
@@ -8,7 +11,10 @@ export async function up(knex) {
         table.timestamp('deleted_at').nullable();
     })
 }
+/**
+ * @param {import("knex").Knex} knex
+ */
 
-export async function down(knex) {
+module.exports.down = async function (knex) {
     await knex.schema.dropTable('ingredients')
 }

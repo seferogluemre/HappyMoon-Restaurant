@@ -64,6 +64,7 @@ View Category → GET /categories/:id
 Update Category → PATCH /categories/:id
 Delete Category → DELETE /categories
 
+
 Product:
 Create Product → POST /products
 List Products → GET /products

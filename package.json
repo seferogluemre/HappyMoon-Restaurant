@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "pnpm tsx ./src/app.ts",
+    "dev": "pnpm tsx watch ./src/app.ts"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +15,8 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "knex": "^3.1.0",
-    "pg": "^8.13.3"
+    "pg": "^8.13.3",
+    "tsx": "^4.19.3"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",

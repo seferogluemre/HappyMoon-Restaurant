@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import category_repository from '../repositories/category.repository'
 
-
 // Category List
 export const listCategories = async (req: Request, res: Response) => {
     try {
@@ -46,3 +45,27 @@ export const addCategory = async (req: Request, res: Response) => {
     }
 };
 
+// Update Category Controller
+export const editCategory = async (req: Request, res: Response) => {
+    try {
+        const id = Number(req.params.id)
+        const body = req.body;
+        const updatedCategory = await category_repository.updateCategory(id, body)
+        res.status(200).json(updatedCategory)
+    } catch (error) {
+        res.status(500).json({ message: (error as Error).message });
+        return;
+    }
+}
+
+// Delete Category Controller
+export const removeCategory = async (req: Request, res: Response) => {
+    try {
+        const id = Number(req.params.id)
+        const deletedCategory = await category_repository.deleteCategory(id)
+        res.status(201).json({ data: deletedCategory })
+    } catch (error) {
+        res.status(404).json({ message: (error as Error).message })
+        return;
+    }
+}

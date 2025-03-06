@@ -1,5 +1,5 @@
-import knex from 'knex'
-import dotenv from 'dotenv'
+import knex from 'knex';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -12,6 +12,6 @@ const db = knex({
         host: process.env.DB_HOST,
         port: Number(process.env.DB_PORT) || 5432,
     },
-})
+});
 
 export default db;

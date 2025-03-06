@@ -5,12 +5,24 @@ interface CategoryBody {
     description: string;
 }
 
+const tableName = "categories"
+
 const category_repository = {
+
+    async getCategories() {
+        return db(tableName).returning('*');
+    },
+
     async createCategory(data: CategoryBody) {
-        return db('categories')
+        return db(tableName)
             .insert(data)
             .returning('*');
+    },
+
+    async getCategoryById(id: number) {
+        return db(tableName).where({ id }).first()
     }
+
 }
 
 

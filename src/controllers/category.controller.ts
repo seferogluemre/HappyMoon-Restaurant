@@ -1,5 +1,8 @@
 import { Request, Response } from 'express';
 import category_repository, { QueryProps } from '../repositories/category.repository'
+import { plainToInstance } from 'class-transformer';
+import { CreateCategoryDTO } from 'src/dto/category/CreateCategoryDTO';
+import { validate } from 'class-validator';
 
 // Category List
 export const listCategories = async (req: Request<{}, {}, {}, QueryProps>, res: Response) => {
@@ -31,12 +34,22 @@ export const getCategory = async (req: Request<{ id: number }, {}, {}>, res: Res
 // Create Category Controller
 export const addCategory = async (req: Request, res: Response) => {
     try {
-        const { name, description } = req.body;
-        const newCategory = await category_repository.createCategory({ name, description });
-        res.status(201).json({
-            message: 'Kategori Oluşturuldu',
-            data: newCategory
-        });
+        const categoryDto = plainToInstance(CreateCategoryDTO, req.body)
+
+        const errors = await validate(categoryDto)
+
+        if (errors.length > 0) {
+            return res.status(400).json({
+                message: "Validasyon hatası lütfen alanları kontrol ediniz",
+                errors: errors.map(err => err.constraints),
+            });
+        }
+
+        const createdCategory = await category_repository.createCategory({
+            ...categoryDto,
+        })
+
+        res.status(201).json({ message: "Kategori başarıyla oluşturuldu", data: createdCategory });
     } catch (error) {
         console.error(error);
         res.status(404).json({ message: (error as Error).message })
@@ -46,10 +59,9 @@ export const addCategory = async (req: Request, res: Response) => {
 // Update Category Controller
 export const editCategory = async (req: Request, res: Response) => {
     try {
-        const id = Number(req.params.id)
-        const body = req.body;
-        const updatedCategory = await category_repository.updateCategory(id, body)
-        res.status(200).json({ data: updatedCategory })
+
+
+
     } catch (error) {
         res.status(500).json({ message: (error as Error).message });
         return;

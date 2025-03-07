@@ -12,11 +12,11 @@ const tableName = "products"
 const product_repositories = {
 
     async getProducts() {
-        return db(tableName).returning('*');
+        return db(tableName).where({ deleted_at: null }).returning('*');
     },
 
     async getProductById(id: number) {
-        return db(tableName).where({ id }).first()
+        return db(tableName).where({ id, deleted_at: null }).first()
     },
 
     async createProduct(data: ProductCreateBody) {

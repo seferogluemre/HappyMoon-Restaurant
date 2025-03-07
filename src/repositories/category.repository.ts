@@ -10,11 +10,11 @@ const tableName = "categories"
 const category_repository = {
 
     async getCategories() {
-        return db(tableName).returning('*');
+        return db(tableName).where({ deleted_at: null }).returning('*');
     },
 
     async getCategoryById(id: number) {
-        return db(tableName).where({ id }).first()
+        return db(tableName).where({ id, deleted_at: null }).first()
     },
 
     async createCategory(data: CategoryCreateBody) {

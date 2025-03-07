@@ -10,11 +10,11 @@ const tableName = "ingredients"
 const ingredients_repositories = {
 
     async getIngredients() {
-        return db(tableName).returning('*')
+        return db(tableName).where({ deleted_at: null }).returning('*')
     },
 
     async getIngredientById(id: number) {
-        return db(tableName).where({ id }).first();
+        return db(tableName).where({ id, deleted_at: null }).first();
     },
 
     async createIngredient(data: CreateIngredientBody) {

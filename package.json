@@ -7,7 +7,7 @@
     "dev": "pnpm tsx watch ./src/app.ts"
   },
   "keywords": [],
-  "author": "",
+  "author": "Emre SEFEROĞLU",
   "license": "ISC",
   "description": "",
   "dependencies": {

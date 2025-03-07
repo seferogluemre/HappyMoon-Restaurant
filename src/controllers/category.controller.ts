@@ -51,7 +51,7 @@ export const editCategory = async (req: Request, res: Response) => {
         const id = Number(req.params.id)
         const body = req.body;
         const updatedCategory = await category_repository.updateCategory(id, body)
-        res.status(200).json(updatedCategory)
+        res.status(200).json({ data: updatedCategory })
     } catch (error) {
         res.status(500).json({ message: (error as Error).message });
         return;

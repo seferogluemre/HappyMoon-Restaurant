@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import category_repository from '../repositories/category.repository'
+import category_repository, { QueryProps } from '../repositories/category.repository'
 
 // Category List
-export const listCategories = async (req: Request, res: Response) => {
+export const listCategories = async (req: Request<{}, {}, {}, QueryProps>, res: Response) => {
     try {
-        const categories = await category_repository.getCategories();
+        const categories = await category_repository.getCategories(req.query);
         res.status(200).json({ data: categories })
     } catch (error) {
         res.status(404).json({ message: (error as Error).message })

@@ -1,20 +1,20 @@
 import db from '../config/database'
 
 interface CreateIngredientBody {
-
+    name: string;
+    is_allergen: boolean
 }
 
 const tableName = "ingredients"
 
-
 const ingredients_repositories = {
 
     async getIngredients() {
-        return db(tableName).where({ deleted_at: null }).returning('*')
+        return db(tableName).returning('*')
     },
 
     async getIngredientById(id: number) {
-        return db(tableName).where({ id, deleted_at: null }).first();
+        return db(tableName).where({ id }).first();
     },
 
     async createIngredient(data: CreateIngredientBody) {
@@ -30,7 +30,7 @@ const ingredients_repositories = {
     },
 
     async deleteIngredient(id: number) {
-        return db(tableName).update({ deleted_at: new Date() })
+        return db(tableName).where({ id, deleted_at: null }).update({ deleted_at: new Date() })
     }
 }
 

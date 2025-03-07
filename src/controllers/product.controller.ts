@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import product_repository from '../repositories/product.repository'
+import product_repository, { QueryPropsProduct } from '../repositories/product.repository'
 
 // List Products Controller
-export const listProducts = async (req: Request, res: Response) => {
+export const listProducts = async (req: Request<{}, {}, {}, QueryPropsProduct>, res: Response) => {
     try {
-        const products = await product_repository.getProducts();
+        const products = await product_repository.getProducts(req.query);
         res.status(200).json({ data: products })
     } catch (error) {
         res.status(404).json({ message: (error as Error).message })

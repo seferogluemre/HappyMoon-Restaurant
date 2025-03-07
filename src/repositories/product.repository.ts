@@ -7,12 +7,33 @@ interface ProductCreateBody {
     category_id: number;
 }
 
+export interface QueryPropsProduct {
+    category_id?: number;
+    showDeleted: string;
+}
+
 const tableName = "products"
 
 const product_repositories = {
 
-    async getProducts() {
-        return db(tableName).where({ deleted_at: null }).returning('*');
+    async getProducts(query: QueryPropsProduct) {
+        let queryBuilder = db(tableName)
+
+        if (query.category_id) {
+            const id = query.category_id;
+            queryBuilder = queryBuilder.where({ category_id: id }).first();
+        }
+        else if (query.showDeleted === "true") {
+            queryBuilder = queryBuilder.whereNotNull('deleted_at');
+        }
+        else if (query.showDeleted === "onlyDeleted") {
+            queryBuilder = queryBuilder.whereNull('deleted_at')
+        }
+        else {
+            queryBuilder = queryBuilder;
+        }
+
+        return queryBuilder
     },
 
     async getProductById(id: number) {
@@ -37,9 +58,8 @@ const product_repositories = {
     },
 
     async deleteProduct(id: number) {
-        return db(tableName).where({ id }).update({ deleted_at: new Date() }).returning('*')
+        return db(tableName).where({ id, deleted_at: null }).update({ deleted_at: new Date() }).returning('*')
     }
-
 }
 
 export default product_repositories;

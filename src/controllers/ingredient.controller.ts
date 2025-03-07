@@ -2,9 +2,7 @@ import { Request, Response } from 'express';
 import ingredients_repositories from "../repositories/ingredient.repository";
 import { plainToInstance } from 'class-transformer';
 import { CreateIngredientDto } from 'src/dto/ingredient/CreateIngredientDto';
-import { val } from 'cheerio/dist/commonjs/api/attributes';
 import { validate } from 'class-validator';
-import { UpdateCategoryDTO } from 'src/dto/category/UpdateCategoryDto';
 import { UpdateIngredientDto } from 'src/dto/ingredient/UpdateIngredientDto';
 
 
@@ -70,7 +68,7 @@ export const editIngredient = async (req: Request, res: Response) => {
         const { id } = req.params;
         if (!id || isNaN(Number(id))) {
             return res.status(404).json({
-                message: "Geçerli bir ürün ID'si giriniz."
+                message: "Geçerli bir Malzeme ID'si giriniz."
             })
         }
 
@@ -87,7 +85,7 @@ export const editIngredient = async (req: Request, res: Response) => {
 
         const existingIngredient = await ingredients_repositories.getIngredientById(Number(id))
         if (!existingIngredient) {
-            return res.status(404).json({ message: "Güncellenecek ürün bulunamadı." });
+            return res.status(404).json({ message: "Güncellenecek Malzeme bulunamadı." });
         }
 
         const updatedIngredient = await ingredients_repositories.updateIngredient(Number(id), {

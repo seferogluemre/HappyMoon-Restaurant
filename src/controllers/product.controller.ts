@@ -1,9 +1,10 @@
-import { Request, Response } from 'express';
 import product_repository, { QueryPropsProduct } from '../repositories/product.repository'
 import { validate } from 'class-validator';
 import { plainToInstance } from 'class-transformer';
-import { UpdateProductDTO } from 'src/dto/product/UpdateProductDTO';
-import { CreateProductDTO } from 'src/dto/product/CreateProductDTO';
+import { CreateProductDTO } from 'src/dto/product/CreateProductDto';
+import { UpdateProductDTO } from 'src/dto/product/UpdateProductDto';
+import { Request, Response } from 'express';
+
 
 
 // List Products Controller
@@ -47,7 +48,6 @@ export const createProduct = async (req: Request, res: Response) => {
             ...productDto,
             category_id: Number(productDto.category_id) ?? null,
         });
-
 
         res.status(201).json({ message: "Ürün oluşturuldu", data: createdProduct });
     } catch (error) {

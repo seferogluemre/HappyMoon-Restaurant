@@ -1,0 +1,857 @@
+{
+	"info": {
+		"_postman_id": "1d50d194-cfbd-4174-bb2f-1885e8d9eb08",
+		"name": "Restaurant Menu Backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40427526"
+	},
+	"item": [
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "List Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories?showDeleted=false",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories"
+							],
+							"query": [
+								{
+									"key": "showDeleted",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "List Categories",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/categories",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "356"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"164-K5D+yKjFSXMT1D0FlNa3szlrp0M\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 06 Mar 2025 13:14:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"Tatlı\",\n            \"description\": \"Lezzetli pastalar, sütlü tatlılar ve şerbetli tatlılar.\",\n            \"created_at\": \"2025-03-06T12:50:45.867Z\",\n            \"updated_at\": null,\n            \"deleted_at\": null\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Ana yemek\",\n            \"description\": \"Izgara, sulu yemekler ve doyurucu ana yemekler.\",\n            \"created_at\": \"2025-03-06T13:11:57.255Z\",\n            \"updated_at\": null,\n            \"deleted_at\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Dönerler\",\r\n    \"description\": \"Lezzetli ve besleyici yemekler\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Tatlı\",\r\n    \"description\": \"Lezzetli pastalar, sütlü tatlılar ve şerbetli tatlılar.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/categories",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "222"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"de-VHeym51MP7EV1gObYn2WvrtGtQw\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 06 Mar 2025 12:50:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Kategori Oluşturuldu\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"Tatlı\",\n            \"description\": \"Lezzetli pastalar, sütlü tatlılar ve şerbetli tatlılar.\",\n            \"created_at\": \"2025-03-06T12:50:45.867Z\",\n            \"updated_at\": null,\n            \"deleted_at\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Show Category",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/categories/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Tatlı çeşitleri\",\r\n    \"description\": \"Lezzetli pastalar, sütlü tatlılar ve şerbetli tatlılar.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/categories/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "List Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products?category_id=4&showDeleted=false",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "category_id",
+									"value": "4"
+								},
+								{
+									"key": "showDeleted",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "List Products Example",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/products",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"products"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "565"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"235-kcymzB0OLbUgtbe61RPtYbE5YGI\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 06 Mar 2025 14:00:13 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"category_id\": 4,\n            \"name\": \"Et Döner\",\n            \"description\": \"Et döner, ince dilimlenmiş ve özenle pişirilmiş dana etinin, taze ekmek veya pideyle sunulan nefis bir Türk lezzetidir.\",\n            \"price\": 240,\n            \"created_at\": \"2025-03-06T13:56:39.230Z\",\n            \"updated_at\": null,\n            \"deleted_at\": null\n        },\n        {\n            \"id\": 2,\n            \"category_id\": 4,\n            \"name\": \"Tavuk Döner\",\n            \"description\": \"Tavuk döner, ince dilimlenmiş ve özenle pişirilmiş Tavuk etinin, taze ekmek veya pideyle sunulan nefis bir Türk lezzetidir.\",\n            \"price\": 140,\n            \"created_at\": \"2025-03-06T13:57:22.836Z\",\n            \"updated_at\": null,\n            \"deleted_at\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Tavuk Döner\",\r\n    \"description\": \"Tavuk döner, ince dilimlenmiş ve özenle pişirilmiş Tavuk etinin, taze ekmek veya pideyle sunulan nefis bir Türk lezzetidir.\",\r\n    \"price\": 140,\r\n    \"category_id\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Product Example",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/products/:id",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"products",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "289"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"121-9IR1WwSR7vh440GwND+AO7qupTc\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 06 Mar 2025 14:00:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 2,\n        \"category_id\": 4,\n        \"name\": \"Tavuk Döner\",\n        \"description\": \"Tavuk döner, ince dilimlenmiş ve özenle pişirilmiş Tavuk etinin, taze ekmek veya pideyle sunulan nefis bir Türk lezzetidir.\",\n        \"price\": 140,\n        \"created_at\": \"2025-03-06T13:57:22.836Z\",\n        \"updated_at\": null,\n        \"deleted_at\": null\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Et  döner\",\r\n    \"description\": \"Et döner, ince dilimlenmiş ve özenle pişirilmiş dana etinin, taze ekmek veya pideyle sunulan nefis bir Türk lezzetidir.\",\r\n    \"category_id\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/products/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Product Example",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Tavuk döner\",\r\n    \"description\": \"Tavuk döner, ince dilimlenmiş ve özenle pişirilmiş Tavuk etinin, taze ekmek veya pideyle sunulan nefis bir Türk lezzetidir.\",\r\n    \"category_id\": 4\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/products/:id",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"products",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "313"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"139-Mp+Lwa01vqN0+Cz2go0Vp+a6DH8\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 06 Mar 2025 14:03:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"category_id\": 4,\n            \"name\": \"Tavuk döner\",\n            \"description\": \"Tavuk döner, ince dilimlenmiş ve özenle pişirilmiş Tavuk etinin, taze ekmek veya pideyle sunulan nefis bir Türk lezzetidir.\",\n            \"price\": 240,\n            \"created_at\": \"2025-03-06T13:56:39.230Z\",\n            \"updated_at\": \"2025-03-06T14:03:18.171Z\",\n            \"deleted_at\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ingredient",
+			"item": [
+				{
+					"name": "List Ingredients",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/ingredients",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ingredients"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "List Ingredients Example",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/ingredients",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"ingredients"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "130"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"82-Hbh66Y/LukmxGQ18bFWaQFWUcR8\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 Mar 2025 11:54:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 3,\n        \"name\": \"Ramazan Pidesi\",\n        \"is_allergen\": false,\n        \"created_at\": \"2025-03-07T11:53:39.051Z\",\n        \"updated_at\": null,\n        \"deleted_at\": null\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get Ingredient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/ingredients/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ingredients",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Ingredient Example",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/ingredients/:id",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"ingredients",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "128"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"80-lx1jvSAjBrGsqRrGOUDhEYNaIDQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 07 Mar 2025 11:41:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"Ekmek\",\n        \"is_allergen\": false,\n        \"created_at\": \"2025-03-07T11:41:23.638Z\",\n        \"updated_at\": null,\n        \"deleted_at\": null\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Ingredient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Ramazan Pidesi\",\r\n    \"is_allergen\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/ingredients",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ingredients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Ingredient",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Beyaz Ekmek\",\r\n    \"is_allergen\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/ingredients/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ingredients",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Ingredient",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/ingredients/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ingredients",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}

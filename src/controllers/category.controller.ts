@@ -62,7 +62,7 @@ export const editCategory = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         if (!id || isNaN(Number(1))) {
-            return res.status(400).json({ message: "Geçerli bir ürün ID'si giriniz." });
+            return res.status(400).json({ message: "Geçerli bir kategori ID'si giriniz." });
         }
 
         const categoryDto = plainToInstance(UpdateCategoryDTO, req.body)
@@ -78,7 +78,7 @@ export const editCategory = async (req: Request, res: Response) => {
 
         const existingCategory = await category_repository.getCategoryById(Number(id));
         if (!existingCategory) {
-            return res.status(404).json({ message: "Güncellenecek ürün bulunamadı." });
+            return res.status(404).json({ message: "Güncellenecek kategori bulunamadı." });
         }
 
         const updatedCategory = await category_repository.updateCategory(Number(id), {

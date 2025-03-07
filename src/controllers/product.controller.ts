@@ -50,8 +50,10 @@ export const createProduct = async (req: Request, res: Response) => {
         });
 
         res.status(201).json({ message: "Ürün oluşturuldu", data: createdProduct });
+        return;
     } catch (error) {
         res.status(500).json({ message: (error as Error).message });
+        return;
     }
 };
 

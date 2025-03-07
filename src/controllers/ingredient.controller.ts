@@ -92,7 +92,6 @@ export const editIngredient = async (req: Request, res: Response) => {
             category_id: Number(ingredientDto.category_id) ? Number(ingredientDto.category_id) : null,
             ...ingredientDto,
         });
-
         return res.status(200).json({ message: "Malzeme başarıyla güncellendi", data: updatedIngredient });
     } catch (error) {
         res.status(404).json({ message: (error as Error).message })

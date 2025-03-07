@@ -18,11 +18,9 @@ export const getCategory = async (req: Request<{ id: number }, {}, {}>, res: Res
         const id = +req.params.id;
         const category = await category_repository.getCategoryById(id)
         if (category) {
-            res.status(200).json({ data: category })
-            return;
+            res.status(200).json(category)
         } else {
             res.status(404).json({ message: "Kategori bulunamadı" })
-            return;
         }
     } catch (error) {
         res.status(404).json({ message: (error as Error).message })

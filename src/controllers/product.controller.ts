@@ -17,7 +17,7 @@ export const getProduct = async (req: Request, res: Response) => {
     try {
         const id = Number(req.params.id)
         const product = await product_repository.getProductById(id)
-        res.status(200).json({ data: product })
+        res.status(200).json(product)
     } catch (error) {
         res.status(404).json({ message: (error as Error).message })
         return;
@@ -29,7 +29,7 @@ export const createProduct = async (req: Request, res: Response) => {
     try {
         const body = req.body;
         const createdProduct = await product_repository.createProduct(body)
-        res.status(201).json({ data: createdProduct })
+        res.status(201).json({ message: "Ürün oluşturuldu", data: createdProduct })
     } catch (error) {
         res.status(404).json({ message: (error as Error).message })
         return;

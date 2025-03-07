@@ -21,12 +21,12 @@ const ingredients_repositories = {
         return db(tableName).insert(data).returning('*')
     },
 
-    async updateIngredient(data: CreateIngredientBody) {
+    async updateIngredient(id: number, data: CreateIngredientBody) {
         const updatedIngredient = {
             ...data,
             updated_at: new Date()
         }
-        return db(tableName).update(updatedIngredient).returning('*')
+        return db(tableName).where({ id }).update(updatedIngredient).returning('*')
     },
 
     async deleteIngredient(id: number) {

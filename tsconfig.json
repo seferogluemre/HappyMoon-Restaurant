@@ -16,8 +16,8 @@
     "baseUrl": ".",
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
-    "experimentalDecorators": false,
-    "emitDecoratorMetadata": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "skipLibCheck": true,
     "exactOptionalPropertyTypes": false,
     "strictNullChecks": true

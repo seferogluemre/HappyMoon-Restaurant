@@ -1,5 +1,9 @@
 import { Request, Response } from 'express';
 import product_repository, { QueryPropsProduct } from '../repositories/product.repository'
+import { validate } from 'class-validator';
+import { plainToInstance } from 'class-transformer';
+import { CreateProductDTO } from 'src/dto/product/CreateProductDTO';
+import { UpdateProductDTO } from 'src/dto/product/UpdateProductDTO';
 
 // List Products Controller
 export const listProducts = async (req: Request<{}, {}, {}, QueryPropsProduct>, res: Response) => {
@@ -27,27 +31,61 @@ export const getProduct = async (req: Request, res: Response) => {
 // Create Product Controller
 export const createProduct = async (req: Request, res: Response) => {
     try {
-        const body = req.body;
-        const createdProduct = await product_repository.createProduct(body)
-        res.status(201).json({ message: "Ürün oluşturuldu", data: createdProduct })
-    } catch (error) {
-        res.status(404).json({ message: (error as Error).message })
-        return;
-    }
-}
+        const productDto = plainToInstance(CreateProductDTO, req.body);
 
-// Update Product Controller
+        const errors = await validate(productDto);
+
+        if (errors.length > 0) {
+            return res.status(400).json({
+                message: "Validasyon hatası lütfen alanları kontrol ediniz",
+                errors: errors.map(err => err.constraints),
+            });
+        }
+
+        const createdProduct = await product_repository.createProduct({
+            ...productDto,
+            category_id: Number(productDto.category_id) ?? null,
+        });
+
+
+        res.status(201).json({ message: "Ürün oluşturuldu", data: createdProduct });
+    } catch (error) {
+        res.status(500).json({ message: (error as Error).message });
+    }
+};
+
 export const editProduct = async (req: Request, res: Response) => {
     try {
-        const id = Number(req.params.id)
-        const body = req.body;
-        const updatedProduct = await product_repository.updateProduct(id, body)
-        res.status(201).json({ data: updatedProduct })
+        const { id } = req.params;
+        if (!id || isNaN(Number(id))) {
+            return res.status(400).json({ message: "Geçerli bir ürün ID'si giriniz." });
+        }
+
+        const productDto = plainToInstance(UpdateProductDTO, req.body);
+
+        const errors = await validate(productDto);
+        if (errors.length > 0) {
+            return res.status(400).json({
+                message: "Validasyon hatası lütfen alanları kontrol ediniz",
+                errors: errors.map(err => err.constraints),
+            });
+        }
+
+        const existingProduct = await product_repository.getProductById(Number(id));
+        if (existingProduct) {
+            return res.status(404).json({ message: "Güncellenecek ürün bulunamadı." });
+        }
+
+        const updatedProduct = await product_repository.updateProduct(Number(id), {
+            ...productDto,
+            category_id: productDto.category_id ? Number(Number(productDto.category_id)) : null,
+        });
+
+        return res.status(200).json({ message: "Ürün başarıyla güncellendi", data: updatedProduct });
     } catch (error) {
-        res.status(404).json({ message: (error as Error).message })
-        return;
+        return res.status(500).json({ message: "Sunucu hatası", error: (error as Error).message });
     }
-}
+};
 
 // Remove Product Controller
 export const removeProduct = async (req: Request, res: Response) => {

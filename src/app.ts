@@ -4,7 +4,6 @@ import product_routes from './routes/product.routes'
 import ingredient_routes from './routes/ingredient.routes'
 
 const app = express()
-
 app.use(express.json())
 
 app.use('/categories', category_routes)

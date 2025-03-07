@@ -2,9 +2,9 @@ import db from '../config/database'
 
 interface ProductCreateBody {
     name: string;
-    description: string;
+    description?: string;
     price?: number;
-    category_id: number;
+    category_id: number | null;
 }
 
 export interface QueryPropsProduct {

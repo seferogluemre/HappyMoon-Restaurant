@@ -2,7 +2,7 @@ import db from '../config/database'
 
 interface CreateIngredientBody {
     name: string;
-    is_allergen: boolean
+    is_allergen?: boolean;
 }
 
 const tableName = "ingredients"

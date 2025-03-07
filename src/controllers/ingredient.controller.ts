@@ -1,5 +1,11 @@
 import { Request, Response } from 'express';
 import ingredients_repositories from "../repositories/ingredient.repository";
+import { plainToInstance } from 'class-transformer';
+import { CreateIngredientDto } from 'src/dto/ingredient/CreateIngredientDto';
+import { val } from 'cheerio/dist/commonjs/api/attributes';
+import { validate } from 'class-validator';
+import { UpdateCategoryDTO } from 'src/dto/category/UpdateCategoryDto';
+import { UpdateIngredientDto } from 'src/dto/ingredient/UpdateIngredientDto';
 
 
 // List Ingredients Controller
@@ -36,13 +42,22 @@ export const getIngredient = async (req: Request, res: Response) => {
 // Create Ingredient Controller
 export const addIngredient = async (req: Request, res: Response) => {
     try {
-        const body = req.body;
-        const createdIngredient = await ingredients_repositories.createIngredient(body)
-        if (createdIngredient) {
-            res.status(201).json({ message: "Malzeme Oluşturuldu", data: createdIngredient })
-        } else {
-            res.status(404).json({ message: "Malzeme Oluşturulurken Hata Oluştu" })
+        const ingredientDto = plainToInstance(CreateIngredientDto, req.body)
+
+        const errors = await validate(ingredientDto)
+
+        if (errors.length > 0) {
+            res.status(400).json({
+                message: "Validasyon hatası lütfen alanları kontrol ediniz",
+                errors: errors.map(err => err.constraints),
+            })
         }
+
+        const createdIngredient = await ingredients_repositories.createIngredient({
+            ...ingredientDto,
+        })
+
+        res.status(201).json({ message: "Malzeme başarıyla oluşturuldu", data: createdIngredient });
     } catch (error) {
         res.status(404).json({ message: (error as Error).message })
         return;
@@ -52,10 +67,35 @@ export const addIngredient = async (req: Request, res: Response) => {
 // Update Ingredient Controller 
 export const editIngredient = async (req: Request, res: Response) => {
     try {
-        const id = Number(req.params.id)
-        const body = req.body;
-        const updatedIngredient = await ingredients_repositories.updateIngredient(id, body)
-        res.status(201).json({ data: updatedIngredient })
+        const { id } = req.params;
+        if (!id || isNaN(Number(id))) {
+            return res.status(404).json({
+                message: "Geçerli bir ürün ID'si giriniz."
+            })
+        }
+
+        const ingredientDto = plainToInstance(UpdateIngredientDto, req.body)
+
+        const errors = await validate(ingredientDto)
+
+        if (errors.length > 0) {
+            return res.status(400).json({
+                message: "Validasyon hatası lütfen alanları kontrol ediniz",
+                error: errors.map(err => err.constraints)
+            })
+        }
+
+        const existingIngredient = await ingredients_repositories.getIngredientById(Number(id))
+        if (!existingIngredient) {
+            return res.status(404).json({ message: "Güncellenecek ürün bulunamadı." });
+        }
+
+        const updatedIngredient = await ingredients_repositories.updateIngredient(Number(id), {
+            category_id: Number(ingredientDto.category_id) ? Number(ingredientDto.category_id) : null,
+            ...ingredientDto,
+        });
+
+        return res.status(200).json({ message: "Malzeme başarıyla güncellendi", data: updatedIngredient });
     } catch (error) {
         res.status(404).json({ message: (error as Error).message })
         return;

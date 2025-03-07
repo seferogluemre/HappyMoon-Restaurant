@@ -77,7 +77,7 @@ export const editCategory = async (req: Request, res: Response) => {
         }
 
         const existingCategory = await category_repository.getCategoryById(Number(id));
-        if (existingCategory) {
+        if (!existingCategory) {
             return res.status(404).json({ message: "Güncellenecek ürün bulunamadı." });
         }
 

@@ -2,8 +2,9 @@ import { Request, Response } from 'express';
 import product_repository, { QueryPropsProduct } from '../repositories/product.repository'
 import { validate } from 'class-validator';
 import { plainToInstance } from 'class-transformer';
-import { CreateProductDTO } from 'src/dto/product/CreateProductDTO';
 import { UpdateProductDTO } from 'src/dto/product/UpdateProductDTO';
+import { CreateProductDTO } from 'src/dto/product/CreateProductDTO';
+
 
 // List Products Controller
 export const listProducts = async (req: Request<{}, {}, {}, QueryPropsProduct>, res: Response) => {

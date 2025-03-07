@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
 import category_repository, { QueryProps } from '../repositories/category.repository'
 import { plainToInstance } from 'class-transformer';
-import { CreateCategoryDTO } from 'src/dto/category/CreateCategoryDTO';
 import { validate } from 'class-validator';
+import { UpdateCategoryDTO } from '../dto/category/UpdateCategoryDto';
+import { CreateCategoryDTO } from '../dto/category/CreateCategoryDto';
 
 // Category List
 export const listCategories = async (req: Request<{}, {}, {}, QueryProps>, res: Response) => {
@@ -59,9 +60,33 @@ export const addCategory = async (req: Request, res: Response) => {
 // Update Category Controller
 export const editCategory = async (req: Request, res: Response) => {
     try {
+        const { id } = req.params;
+        if (!id || isNaN(Number(1))) {
+            return res.status(400).json({ message: "Geçerli bir ürün ID'si giriniz." });
+        }
 
+        const categoryDto = plainToInstance(UpdateCategoryDTO, req.body)
 
+        const errors = await validate(categoryDto)
 
+        if (errors.length > 0) {
+            return res.status(400).json({
+                message: "Validasyon hatası lütfen alanları kontrol ediniz",
+                errors: errors.map(err => err.constraints),
+            });
+        }
+
+        const existingCategory = await category_repository.getCategoryById(Number(id));
+        if (existingCategory) {
+            return res.status(404).json({ message: "Güncellenecek ürün bulunamadı." });
+        }
+
+        const updatedCategory = await category_repository.updateCategory(Number(id), {
+            ...categoryDto,
+            category_id: Number(categoryDto.category_id) ? Number(categoryDto.category_id) : null,
+        });
+
+        return res.status(200).json({ message: "Kategori başarıyla güncellendi", data: updatedCategory });
     } catch (error) {
         res.status(500).json({ message: (error as Error).message });
         return;

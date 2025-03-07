@@ -3,6 +3,7 @@ import db from '../config/database'
 interface CategoryCreateBody {
     name: string;
     description: string;
+    category_id?: number | null;
 }
 
 export interface QueryProps {

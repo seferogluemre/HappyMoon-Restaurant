@@ -63,7 +63,7 @@ export const addIngredient = async (req: Request, res: Response) => {
 }
 
 // Update Ingredient Controller 
-export const editIngredient = async (req: Request, res: Response) => {
+export const editIngredient = async (req: Request, res: Response):Promise<any> => {
     try {
         const { id } = req.params;
         if (!id || isNaN(Number(id))) {

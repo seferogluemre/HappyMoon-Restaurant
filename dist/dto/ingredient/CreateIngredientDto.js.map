@@ -1,0 +1,1 @@
+{"version":3,"file":"CreateIngredientDto.js","sourceRoot":"","sources":["../../../src/dto/ingredient/CreateIngredientDto.ts"],"names":[],"mappings":";;;;;;;;;AAAA,OAAO,EAAE,SAAS,EAAE,UAAU,EAAE,UAAU,EAAE,QAAQ,EAAE,MAAM,iBAAiB,CAAC;AAE9E,MAAM,OAAO,mBAAmB;IAG5B,IAAI,CAAU;IAId,WAAW,CAAW;CACzB;AALG;IAFC,UAAU,EAAE;IACZ,QAAQ,EAAE;;iDACG;AAId;IAFC,SAAS,EAAE;IACX,UAAU,EAAE;;wDACS"}

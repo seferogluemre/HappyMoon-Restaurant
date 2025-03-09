@@ -29,7 +29,8 @@
       "resolveJsonModule": true,
       "allowJs": true,
       "esModuleInterop": true,
-      "isolatedModules": true
+      "isolatedModules": true,
+      "outDir": "./dist"
     }
   },
   "include": [

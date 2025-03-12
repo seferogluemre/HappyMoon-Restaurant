@@ -33,7 +33,7 @@ export const getCategory = async (req: Request<{ id: number }, {}, {}>, res: Res
 }
 
 // Create Category Controller
-export const addCategory = async (req: Request, res: Response): Promise<any> => {
+export const addCategory = async (req: Request, res: Response) => {
     try {
         const categoryDto = plainToInstance(CreateCategoryDTO, req.body)
 
@@ -58,7 +58,7 @@ export const addCategory = async (req: Request, res: Response): Promise<any> => 
 };
 
 // Update Category Controller
-export const editCategory = async (req: Request, res: Response): Promise<any> => {
+export const editCategory = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         if (!id || isNaN(Number(id))) {

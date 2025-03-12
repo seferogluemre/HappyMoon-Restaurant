@@ -31,7 +31,7 @@ export const getProduct = async (req: Request, res: Response) => {
 }
 
 // Create Product Controller
-export const createProduct = async (req: Request, res: Response): Promise<any> => {
+export const createProduct = async (req: Request, res: Response) => {
     try {
         const productDto = plainToInstance(CreateProductDTO, req.body);
 
@@ -57,7 +57,7 @@ export const createProduct = async (req: Request, res: Response): Promise<any> =
     }
 };
 
-export const editProduct = async (req: Request, res: Response): Promise<any> => {
+export const editProduct = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         if (!id || isNaN(Number(id))) {

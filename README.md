@@ -1,5 +1,5 @@
 Restaurant Menu Backend
-This project is a backend application that manages a restaurant menu. It is developed using TypeScript, Express, PostgreSQL, and Knex.js. The project aims to manage various data related to the restaurant's menu, including categories, products, product ingredients, and ingredients.
+This project is a backend application that manages a restaurant menu. It is developed using Node.js TypeScript, Express, PostgreSQL, and Knex.js. The project aims to manage various data related to the restaurant's menu, including categories, products, product ingredients, and ingredients.
 
 Project Structure
 The project is organized following the MVC (Model-View-Controller) architecture. It contains the following main structures:
